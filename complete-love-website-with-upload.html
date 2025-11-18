@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 致我最爱的你 - 完整版 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'SimHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 50%, #E1BEE7 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 导航栏 */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 1000;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+        
+        .logout-button {
+            background: linear-gradient(45deg, #FF6B6B, #FF4757);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+            font-weight: bold;
+        }
+        
+        .logout-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
+        }
+        
+        .nav-button {
+            background: linear-gradient(45deg, #FF69B4, #FF1493);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+            font-weight: bold;
+        }
+        
+        .nav-button:hover, .nav-button.active {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.5);
+        }
+        
+        .nav-button.active {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+        }
+        
+        /* 页面容器 */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 100px 20px 40px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        /* 主页样式 */
+        .home-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .main-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 20px;
+        }
+        
+        .main-title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #FF69B4, #FFB6C1, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            min-height: 2rem;
+            animation: fadeInOut 4s ease-in-out infinite;
+        }
+        
+        .love-letter {
+            font-size: 1.3rem;
+            line-height: 2;
+            margin-bottom: 3rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 4px solid #FF69B4;
+        }
+        
+        .heart-button {
+            background: linear-gradient(45deg, #FF69B4, #FF1493);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+            margin: 10px;
+            font-weight: bold;
+        }
+        
+        .heart-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.6);
+        }
+        
+        /* 照片画廊样式 */
+        .gallery-header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+        }
+        
+        .gallery-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .photo-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideInUp 0.6s ease-out forwards;
+            position: relative;
+            will-change: transform, opacity;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .photo-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .photo-info {
+            padding: 25px;
+        }
+        
+        .photo-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        
+        .photo-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .photo-date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        .delete-photo-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, #FF6B6B, #FF4757);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .photo-card:hover .delete-photo-btn {
+            opacity: 1;
+        }
+        
+        .delete-photo-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+        }
+        
+        /* 文件上传样式 */
+        .upload-area {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 600px;
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: #FF69B4;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .upload-area.dragover {
+            border-color: #FF69B4;
+            background: rgba(255, 105, 180, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-button {
+            background: linear-gradient(45deg, #FF69B4, #FF1493);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+            margin: 10px;
+            font-weight: bold;
+        }
+        
+        .upload-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.6);
+        }
+        
+        .upload-form {
+            display: none;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .upload-form.active {
+            display: block;
+            animation: slideInUp 0.5s ease-out;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #FF69B4;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        /* 留言板样式 */
+        .messages-header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+        
+        .messages-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+            color: #E91E63;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        .messages-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .message-form {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .messages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .message-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideInUp 0.6s ease-out forwards;
+            will-change: transform, opacity;
+        }
+        
+        .message-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #FF69B4, #FF1493);
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .message-type {
+            background: linear-gradient(45deg, #FF69B4, #FF1493);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .message-date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: #C2185B;
+        }
+        
+        .message-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #C2185B;
+        }
+        
+        .message-author {
+            text-align: right;
+            font-style: italic;
+            color: #E91E63;
+            font-weight: bold;
+        }
+        
+        .delete-message-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #FF6B6B, #FF4757);
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 12px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .message-card:hover .delete-message-btn {
+            opacity: 1;
+        }
+        
+        .delete-message-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+        }
+        
+        /* 通用元素 */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 20px;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .click-counter {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-weight: bold;
+            z-index: 100;
+        }
+        
+        .quick-messages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .quick-message-btn {
+            background: rgba(255, 182, 193, 0.3);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            color: #C2185B;
+            padding: 8px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-message-btn:hover {
+            background: rgba(255, 105, 180, 0.2);
+            border-color: #FF69B4;
+        }
+        
+        .interactive-area {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .memory-counter {
+            text-align: center;
+            font-size: 1.3rem;
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* 动画 */
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 1; 
+            }
+            90% { 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateY(-100vh) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+        
+        @keyframes titleGlow {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+            100% { filter: brightness(1); }
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+            color: #C2185B;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 60vh;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 105, 180, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 20, 147, 0.9);
+            transform: scale(1.1);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                gap: 10px;
+            }
+            
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .love-letter {
+                font-size: 1.1rem;
+                padding: 20px;
+            }
+            
+            .gallery-header h1,
+            .messages-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .gallery-grid,
+            .messages-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .click-counter {
+                top: 80px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .upload-area {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+            
+            .upload-form {
+                padding: 20px;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav-container">
+        <div class="nav-buttons">
+            <button class="nav-button active" onclick="showPage('home')">🏠 爱的主页</button>
+            <button class="nav-button" onclick="showPage('gallery')">📸 浪漫回忆</button>
+            <button class="nav-button" onclick="showPage('messages')">💌 爱情留言</button>
+        </div>
+        <button class="logout-button" onclick="logout()">🚪 退出</button>
+    </div>
+
+    <!-- 爱意计数器 -->
+    <div class="click-counter" id="clickCounter">💖 已表达爱意 0 次</div>
+
+    <!-- 飘浮的爱心 -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- 主页 -->
+    <div id="home" class="page active">
+        <div class="home-container">
+            <div class="main-card">
+                <h1 class="main-title">💕 我爱你 💕</h1>
+                
+                <div class="subtitle" id="subtitle">
+                    亲爱的，遇见你是我生命中最美好的奇迹
+                </div>
+                
+                <div class="love-letter">
+                    <p>从遇见你的那一刻起，我的世界变得不一样了。</p>
+                    <p>你的笑容如春风般温暖，你的眼神如星辰般闪耀。</p>
+                    <p>每一天醒来，想到你，我的世界就充满了阳光。</p>
+                    <p>愿我所有的温柔和偏爱都给你，此生有你，足矣。</p>
+                    <div style="text-align: right; margin-top: 2rem; font-style: italic; color: #FFD700;">爱你的我 💕</div>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <button class="heart-button" onclick="showLove()">
+                        💖 点击表达爱意 💖
+                    </button>
+                    <button class="heart-button" onclick="createHeartRain()">
+                        ✨ 爱心雨 ✨
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 照片画廊 -->
+    <div id="gallery" class="page">
+        <div class="gallery-header">
+            <h1>💕 我们的浪漫回忆 💕</h1>
+            <p>每一张照片都承载着我们的甜蜜时光</p>
+        </div>
+        
+        <div class="memory-counter">
+            <p>💝 我们已经一起创造了 <span id="memoryCount">0</span> 个美好回忆 💝</p>
+            <p>每一刻都值得珍藏</p>
+        </div>
+        
+        <!-- 文件上传区域 -->
+        <div class="upload-area" id="uploadArea">
+            <h3>📸 上传你们的浪漫照片</h3>
+            <p>拖拽图片到这里，或者点击选择文件</p>
+            <input type="file" id="fileInput" class="file-input" accept="image/*" multiple>
+            <button class="upload-button" onclick="document.getElementById('fileInput').click()">
+                📁 选择照片
+            </button>
+            <button class="upload-button" onclick="toggleUploadForm()">
+                ✨ 手动添加回忆
+            </button>
+        </div>
+        
+        <!-- 手动添加表单 -->
+        <div class="upload-form" id="uploadForm">
+            <h3>💕 添加美好回忆</h3>
+            <div class="form-group">
+                <label for="photoTitle">💝 回忆标题</label>
+                <input type="text" id="photoTitle" placeholder="给这个美好时刻起个名字">
+            </div>
+            <div class="form-group">
+                <label for="photoDescription">💌 回忆描述</label>
+                <textarea id="photoDescription" placeholder="描述这个特别的时刻..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="photoDate">📅 回忆日期</label>
+                <input type="text" id="photoDate" placeholder="例如：2024年情人节">
+            </div>
+            <div class="form-group">
+                <label for="photoUrl">🖼️ 图片链接（可选）</label>
+                <input type="url" id="photoUrl" placeholder="粘贴图片网址，或留空使用默认图片">
+            </div>
+            <div id="imagePreview"></div>
+            <div style="text-align: center;">
+                <button class="heart-button" onclick="addManualMemory()">
+                    💖 添加回忆
+                </button>
+                <button class="heart-button" onclick="toggleUploadForm()">
+                    ❌ 取消
+                </button>
+            </div>
+        </div>
+        
+        <div class="interactive-area">
+            <button class="heart-button" onclick="createHeartRain()">✨ 爱心雨</button>
+            <button class="heart-button" onclick="showRandomMemory()">🎲 随机回忆</button>
+        </div>
+        
+        <div class="gallery-container">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 浪漫照片将在这里动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 爱情留言板 -->
+    <div id="messages" class="page">
+        <div class="messages-header">
+            <h1>💌 爱情留言板 💌</h1>
+            <p>把你想对我说的话写在这里，每一条我都会珍藏</p>
+        </div>
+        
+        <div class="messages-container">
+            <div class="message-form">
+                <div class="form-group">
+                    <label for="messageType">💝 选择留言类型</label>
+                    <select id="messageType">
+                        <option value="love">💕 爱情告白</option>
+                        <option value="memory">📸 美好回忆</option>
+                        <option value="promise">⭐ 甜蜜承诺</option>
+                        <option value="feeling">💭 心情分享</option>
+                        <option value="future">🌟 未来憧憬</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="messageContent">💌 写下你的心里话</label>
+                    <textarea id="messageContent" placeholder="亲爱的，我想对你说..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="messageAuthor">✍️ 署名</label>
+                    <input type="text" id="messageAuthor" placeholder="爱你的..." />
+                </div>
+                
+                <div class="quick-messages">
+                    <button class="quick-message-btn" onclick="insertQuickMessage('亲爱的，遇见你是我生命中最美好的奇迹。')">遇见奇迹</button>
+                    <button class="quick-message-btn" onclick="insertQuickMessage('每一天醒来，想到你，我的世界就充满了阳光。')">阳光满满</button>
+                    <button class="quick-message-btn" onclick="insertQuickMessage('你的笑容是我见过最美的风景。')">最美笑容</button>
+                    <button class="quick-message-btn" onclick="insertQuickMessage('愿我所有的温柔和偏爱都给你。')">温柔给你</button>
+                    <button class="quick-message-btn" onclick="insertQuickMessage('此生有你，足矣。')">此生有你</button>
+                    <button class="quick-message-btn" onclick="insertQuickMessage('爱你，是我做过最对的决定。')">最对决定</button>
+                </div>
+                
+                <button class="submit-button" onclick="addMessage()">💝 发送爱的留言</button>
+            </div>
+            
+            <div class="messages-grid" id="messagesContainer">
+                <!-- 留言将在这里动态显示 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 照片详情模态框 -->
+    <div id="photoModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePhotoModal()">&times;</button>
+            <img id="modalImage" src="" alt="">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+            <p id="modalDate" style="opacity: 0.7; font-style: italic;"></p>
+        </div>
+    </div>
+
+    <script>
+        // 检查登录状态
+        function checkLoginStatus() {
+            if (localStorage.getItem('loveWebsiteLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+        
+        // 登出功能
+        function logout() {
+            localStorage.removeItem('loveWebsiteLoggedIn');
+            localStorage.removeItem('loveWebsiteUsername');
+            window.location.href = 'login.html';
+        }
+        
+        // 页面加载时检查登录状态
+        if (!checkLoginStatus()) {
+            // 如果未登录，停止执行后续代码
+            throw new Error('User not logged in');
+        }
+        
+        // 全局变量
+        let clickCount = 0;
+        let currentMessageIndex = 0;
+        let memoryCount = 0;
+        let loveCount = 0;
+        let messages = [];
+        let romanticPhotos = [];
+        let currentPhotoIndex = 0;
+
+        // 爱情消息数组
+        const loveMessages = [
+            "亲爱的，遇见你是我生命中最美好的奇迹",
+            "每一天醒来，想到你，我的世界就充满了阳光",
+            "你的笑容是我见过最美的风景",
+            "愿我所有的温柔和偏爱都给你",
+            "此生有你，足矣",
+            "你是我心中永远的唯一",
+            "爱你，是我做过最对的决定",
+            "愿我们的爱如星辰般永恒闪耀"
+        ];
+
+        // 留言类型配置
+        const messageTypes = {
+            love: { emoji: '💕', name: '爱情告白', color: '#FF69B4' },
+            memory: { emoji: '📸', name: '美好回忆', color: '#FFB6C1' },
+            promise: { emoji: '⭐', name: '甜蜜承诺', color: '#FFD700' },
+            feeling: { emoji: '💭', name: '心情分享', color: '#E91E63' },
+            future: { emoji: '🌟', name: '未来憧憬', color: '#FF1493' }
+        };
+
+        // 从本地存储加载照片数据
+        function loadPhotosFromStorage() {
+            const stored = localStorage.getItem('romanticPhotos');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    console.error('加载照片数据失败:', e);
+                    return [];
+                }
+            }
+            return [];
+        }
+        
+        // 保存照片数据到本地存储
+        function savePhotosToStorage() {
+            try {
+                localStorage.setItem('romanticPhotos', JSON.stringify(romanticPhotos));
+            } catch (e) {
+                console.error('保存照片数据失败:', e);
+            }
+        }
+
+        // 从本地存储加载留言数据
+        function loadMessagesFromStorage() {
+            const stored = localStorage.getItem('loveMessages');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    console.error('加载留言数据失败:', e);
+                    return [];
+                }
+            }
+            return [];
+        }
+        
+        // 保存留言数据到本地存储
+        function saveMessagesToStorage() {
+            try {
+                localStorage.setItem('loveMessages', JSON.stringify(messages));
+            } catch (e) {
+                console.error('保存留言数据失败:', e);
+            }
+        }
+
+        // 初始化
+        function init() {
+            // 从本地存储加载照片数据，如果没有则为空数组
+            romanticPhotos = loadPhotosFromStorage();
+            memoryCount = romanticPhotos.length;
+            // 从本地存储加载留言数据，如果没有则为空数组
+            messages = loadMessagesFromStorage();
+            
+            createFloatingHearts();
+            initGallery();
+            renderMessages();
+            updateCounters();
+            setupFileUpload();
+            
+            // 定期更新消息
+            setInterval(() => {
+                currentMessageIndex = (currentMessageIndex + 1) % loveMessages.length;
+                const subtitle = document.getElementById('subtitle');
+                if (subtitle && document.getElementById('home').classList.contains('active')) {
+                    subtitle.textContent = loveMessages[currentMessageIndex];
+                }
+            }, 4000);
+            
+            // 定期更新飘浮爱心
+            setInterval(createFloatingHearts, 15000);
+        }
+
+        // 文件上传设置
+        function setupFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadArea = document.getElementById('uploadArea');
+            
+            // 文件选择事件
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // 拖拽事件
+            uploadArea.addEventListener('dragover', handleDragOver);
+            uploadArea.addEventListener('dragleave', handleDragLeave);
+            uploadArea.addEventListener('drop', handleFileDrop);
+            
+            // URL输入预览
+            document.getElementById('photoUrl').addEventListener('input', previewImageUrl);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('uploadArea').classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('uploadArea').classList.remove('dragover');
+        }
+
+        function handleFileDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('uploadArea').classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        }
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        addPhotoFromFile(e.target.result, file.name);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function addPhotoFromFile(dataUrl, fileName) {
+            const newMemory = {
+                id: Date.now(), // 使用时间戳作为唯一ID
+                title: `珍贵的回忆 #${romanticPhotos.length + 1}`,
+                description: "这是我们珍贵的回忆，每一刻都值得珍藏。",
+                date: "刚刚上传",
+                image: dataUrl
+            };
+            
+            romanticPhotos.unshift(newMemory);
+            memoryCount++;
+            savePhotosToStorage(); // 保存到本地存储
+            initGallery();
+            createHeartRain();
+            updateCounters();
+            
+            showNotification('照片上传成功！已添加到回忆中 💕');
+        }
+
+        function toggleUploadForm() {
+            const form = document.getElementById('uploadForm');
+            form.classList.toggle('active');
+            if (form.classList.contains('active')) {
+                // 清空表单
+                document.getElementById('photoTitle').value = '';
+                document.getElementById('photoDescription').value = '';
+                document.getElementById('photoDate').value = '';
+                document.getElementById('photoUrl').value = '';
+                document.getElementById('imagePreview').innerHTML = '';
+            }
+        }
+
+        function previewImageUrl() {
+            const url = document.getElementById('photoUrl').value.trim();
+            const preview = document.getElementById('imagePreview');
+            
+            if (url) {
+                preview.innerHTML = `<img src="${url}" alt="预览" class="preview-image" onerror="this.style.display='none'">`;
+            } else {
+                preview.innerHTML = '';
+            }
+        }
+
+        function addManualMemory() {
+            const title = document.getElementById('photoTitle').value.trim();
+            const description = document.getElementById('photoDescription').value.trim();
+            const date = document.getElementById('photoDate').value.trim();
+            const url = document.getElementById('photoUrl').value.trim();
+            
+            if (!title || !description) {
+                alert('💕 请填写标题和描述哦～');
+                return;
+            }
+            
+            const newMemory = {
+                id: Date.now(), // 使用时间戳作为唯一ID
+                title: title || "珍贵的回忆",
+                description: description || "这是我们珍贵的回忆",
+                date: date || "美好时光",
+                image: url || "https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=Beautiful%20romantic%20moment%20with%20hearts%20and%20love%20symbols%2C%20warm%20colors%2C%20happiness%20and%20romance&image_size=landscape_16_9"
+            };
+            
+            romanticPhotos.unshift(newMemory);
+            memoryCount++;
+            savePhotosToStorage(); // 保存到本地存储
+            initGallery();
+            createHeartRain();
+            updateCounters();
+            toggleUploadForm();
+            
+            showNotification('回忆添加成功！💕');
+        }
+
+        // 页面切换
+        function showPage(pageId) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // 显示目标页面
+            document.getElementById(pageId).classList.add('active');
+            
+            // 更新导航按钮状态
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // 主页功能
+        function showLove() {
+            clickCount++;
+            currentMessageIndex = (currentMessageIndex + 1) % loveMessages.length;
+            
+            document.getElementById('subtitle').textContent = loveMessages[currentMessageIndex];
+            updateCounters();
+            createHeartEffect();
+            
+            // 震动效果
+            document.body.style.animation = 'none';
+            setTimeout(() => {
+                document.body.style.animation = 'heartbeat 0.5s ease-in-out';
+            }, 10);
+        }
+
+        // 创建爱心特效
+        function createHeartEffect() {
+            const colors = ['#FF69B4', '#FFB6C1', '#FFC0CB', '#FFD700', '#FF1493'];
+            
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.style.position = 'fixed';
+                heart.style.left = (Math.random() * window.innerWidth) + 'px';
+                heart.style.top = (Math.random() * window.innerHeight) + 'px';
+                heart.innerHTML = ['💖', '💕', '💗', '💝'][Math.floor(Math.random() * 4)];
+                heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '1000';
+                heart.style.animation = 'float 3s ease-out forwards';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 3000);
+            }
+        }
+
+        // 爱心雨
+        function createHeartRain() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.top = '-50px';
+                    heart.innerHTML = ['💖', '💕', '💗', '💝', '💘'][Math.floor(Math.random() * 5)];
+                    heart.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '1000';
+                    heart.style.animation = 'float 4s ease-in forwards';
+                    heart.style.color = ['#FF69B4', '#FFB6C1', '#FFC0CB', '#FFD700'][Math.floor(Math.random() * 4)];
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }, i * 100);
+            }
+        }
+
+        // 照片画廊功能
+        function initGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            galleryGrid.innerHTML = '';
+            
+            // 如果没有照片，显示友好提示
+            if (romanticPhotos.length === 0) {
+                galleryGrid.innerHTML = `
+                    <div style="
+                        text-align: center;
+                        padding: 60px 20px;
+                        color: white;
+                        max-width: 500px;
+                        margin: 0 auto;
+                    ">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">📸</div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">还没有浪漫回忆呢</h3>
+                        <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px;">
+                            点击上方的"上传照片"或"手动添加回忆"按钮，<br>
+                            开始记录你们的美好时光吧！
+                        </p>
+                        <div style="font-size: 2rem;">💕</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            romanticPhotos.forEach((photo, index) => {
+                const photoCard = document.createElement('div');
+                photoCard.className = 'photo-card';
+                photoCard.style.animationDelay = `${index * 0.1}s`;
+                
+                photoCard.innerHTML = `
+                    <img src="${photo.image}" alt="${photo.title}" onerror="this.src='https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=Beautiful%20romantic%20scene%20with%20hearts%20and%20love%20symbols%2C%20soft%20pink%20colors%2C%20romantic%20atmosphere&image_size=square'">
+                    <div class="photo-info">
+                        <div class="photo-title">${photo.title}</div>
+                        <div class="photo-description">${photo.description}</div>
+                        <div class="photo-date">${photo.date}</div>
+                        <button class="delete-photo-btn" onclick="deletePhoto(${index})" title="删除这张照片">🗑️</button>
+                    </div>
+                `;
+                
+                photoCard.addEventListener('click', (e) => {
+                    // 如果点击的是删除按钮，不显示模态框
+                    if (e.target.classList.contains('delete-photo-btn')) {
+                        return;
+                    }
+                    showPhotoModal(photo);
+                });
+                
+                galleryGrid.appendChild(photoCard);
+            });
+        }
+
+        function showPhotoModal(photo) {
+            const modal = document.getElementById('photoModal');
+            document.getElementById('modalImage').src = photo.image;
+            document.getElementById('modalTitle').textContent = photo.title;
+            document.getElementById('modalDescription').textContent = photo.description;
+            document.getElementById('modalDate').textContent = photo.date;
+            modal.classList.add('active');
+            createHeartEffect();
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photoModal').classList.remove('active');
+        }
+
+        function showRandomMemory() {
+            if (romanticPhotos.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * romanticPhotos.length);
+            const randomPhoto = romanticPhotos[randomIndex];
+            showPhotoModal(randomPhoto);
+        }
+        
+        // 删除照片功能
+        function deletePhoto(index) {
+            if (confirm('确定要删除这张照片吗？')) {
+                // 添加淡出动画
+                const photoCard = document.querySelectorAll('.photo-card')[index];
+                if (photoCard) {
+                    // 创建爱心消散效果
+                    createHeartBurst(photoCard);
+                    
+                    photoCard.style.transform = 'scale(0.8)';
+                    photoCard.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        romanticPhotos.splice(index, 1);
+                        memoryCount = romanticPhotos.length;
+                        savePhotosToStorage();
+                        initGallery();
+                        updateCounters();
+                        
+                        // 显示删除成功提示
+                        showNotification('照片已删除 💕');
+                    }, 300);
+                } else {
+                    // 如果找不到元素，直接删除
+                    romanticPhotos.splice(index, 1);
+                    memoryCount = romanticPhotos.length;
+                    savePhotosToStorage();
+                    initGallery();
+                    updateCounters();
+                    
+                    // 显示删除成功提示
+                    showNotification('照片已删除 💕');
+                }
+            }
+        }
+        
+        // 显示通知
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(45deg, #FF69B4, #FF1493);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 25px;
+                font-weight: bold;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease-in forwards';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2000);
+        }
+
+        // 留言板功能
+        function addMessage() {
+            const type = document.getElementById('messageType').value;
+            const content = document.getElementById('messageContent').value.trim();
+            const author = document.getElementById('messageAuthor').value.trim() || '爱你的我';
+            
+            if (!content) {
+                alert('💕 请写下你的心里话哦～');
+                return;
+            }
+            
+            const newMessage = {
+                id: Date.now(), // 使用时间戳作为唯一ID
+                type: type,
+                content: content,
+                author: author,
+                date: new Date().toLocaleString('zh-CN')
+            };
+            
+            messages.unshift(newMessage);
+            loveCount++;
+            
+            // 保存到本地存储
+            saveMessagesToStorage();
+            
+            // 清空表单
+            document.getElementById('messageContent').value = '';
+            document.getElementById('messageAuthor').value = '';
+            
+            // 重新渲染
+            renderMessages();
+            updateCounters();
+            createHeartEffect();
+            
+            showNotification('爱的留言已发送成功！💝');
+        }
+
+        function insertQuickMessage(text) {
+            const contentField = document.getElementById('messageContent');
+            contentField.value = text;
+            contentField.focus();
+        }
+
+        function renderMessages() {
+            const container = document.getElementById('messagesContainer');
+            
+            if (messages.length === 0) {
+                container.innerHTML = `
+                    <div style="
+                        text-align: center;
+                        padding: 60px 20px;
+                        background: rgba(255, 255, 255, 0.2);
+                        border-radius: 20px;
+                        backdrop-filter: blur(10px);
+                        max-width: 500px;
+                        margin: 0 auto;
+                    ">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">💌</div>
+                        <h3 style="color: #E91E63; font-size: 1.5rem; margin-bottom: 15px;">还没有爱情留言呢</h3>
+                        <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px;">
+                            点击下方的留言框，<br>
+                            写下你对TA的甜蜜话语吧！
+                        </p>
+                        <div style="font-size: 2rem;">💕</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = messages.map((message, index) => {
+                const typeInfo = messageTypes[message.type];
+                return `
+                    <div class="message-card" style="animation-delay: ${index * 0.1}s; position: relative;">
+                        <div class="message-header">
+                            <span class="message-type" style="background: ${typeInfo.color};">
+                                ${typeInfo.emoji} ${typeInfo.name}
+                            </span>
+                            <span class="message-date">${message.date}</span>
+                        </div>
+                        <div class="message-content">${message.content}</div>
+                        <div class="message-author">—— ${message.author}</div>
+                        <button class="delete-message-btn" onclick="deleteMessage(${index})" title="删除这条留言">🗑️</button>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // 删除留言功能
+        function deleteMessage(index) {
+            if (confirm('确定要删除这条留言吗？')) {
+                // 添加淡出动画
+                const messageCard = document.querySelectorAll('.message-card')[index];
+                if (messageCard) {
+                    // 创建爱心消散效果
+                    createHeartBurst(messageCard);
+                    
+                    messageCard.style.transform = 'scale(0.8)';
+                    messageCard.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        messages.splice(index, 1);
+                        loveCount--;
+                        saveMessagesToStorage();
+                        renderMessages();
+                        updateCounters();
+                        showNotification('留言已删除 💕');
+                    }, 300);
+                } else {
+                    // 如果找不到元素，直接删除
+                    messages.splice(index, 1);
+                    loveCount--;
+                    saveMessagesToStorage();
+                    renderMessages();
+                    updateCounters();
+                    showNotification('留言已删除 💕');
+                }
+            }
+        }
+
+        // 通用功能
+        function createHeartBurst(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // 创建多个小爱心向外扩散
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💕';
+                heart.style.position = 'fixed';
+                heart.style.left = centerX + 'px';
+                heart.style.top = centerY + 'px';
+                heart.style.fontSize = '20px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '9999';
+                heart.style.transition = 'all 0.8s ease-out';
+                
+                // 随机方向和距离
+                const angle = (i / 8) * Math.PI * 2;
+                const distance = 50 + Math.random() * 50;
+                const finalX = centerX + Math.cos(angle) * distance;
+                const finalY = centerY + Math.sin(angle) * distance - 20;
+                
+                document.body.appendChild(heart);
+                
+                // 触发动画
+                setTimeout(() => {
+                    heart.style.left = finalX + 'px';
+                    heart.style.top = finalY + 'px';
+                    heart.style.opacity = '0';
+                    heart.style.transform = 'scale(0.5) rotate(' + (Math.random() * 360) + 'deg)';
+                }, 10);
+                
+                // 移除元素
+                setTimeout(() => {
+                    if (heart.parentNode) {
+                        heart.parentNode.removeChild(heart);
+                    }
+                }, 800);
+            }
+        }
+        
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = ['💖', '💕', '💗', '💝', '💘'][Math.floor(Math.random() * 5)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                
+                container.appendChild(heart);
+            }
+        }
+
+        function updateCounters() {
+            document.getElementById('clickCounter').textContent = `💖 已表达爱意 ${clickCount} 次`;
+            document.getElementById('memoryCount').textContent = memoryCount;
+        }
+
+        // 点击页面创建爱心
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'BUTTON' && !e.target.closest('.form-group') && !e.target.closest('.photo-card') && !e.target.closest('.modal')) {
+                const heart = document.createElement('div');
+                heart.style.position = 'fixed';
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                heart.innerHTML = '💖';
+                heart.style.fontSize = '30px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '1000';
+                heart.style.animation = 'float 2s ease-out forwards';
+                heart.style.color = '#FF69B4';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
+        });
+
+        // 键盘快捷键
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter' && document.getElementById('messages').classList.contains('active')) {
+                addMessage();
+            }
+        });
+
+        // 点击模态框背景关闭
+        document.getElementById('photoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePhotoModal();
+            }
+        });
+
+        // 初始化应用
+        init();
+    </script>
+</body>
+</html>
